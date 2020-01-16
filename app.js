@@ -346,19 +346,26 @@ function renderHeader (){
     headerTotal.textContent = 'Store Total';
     headerRow.appendChild(headerTotal);
 }
-
-SalmonCookies.prototype.renderBody = function(){
-    for (var i=0; i<storeLocations; i++)
-    var bodyRow = document.createElement('tr');
-    var bodyStore = document.createElement('td');
-    bodyHours.textContent = storeLocations.hourlySales[i];
-    bodyRow.appendChild(bodyStore);
-    var bodyHours = documant.createElement('td');
-    bodyStore.textContent = storeLocations.storeName[i];
-    bodyStore.appendChild(bodyHours);
-    var bodyTotal = document.createElement('td');
-    bodyTotal.textContent = storeLocations.dailyTotals[i];
-    bodyHours.appendChild(bodyTotal);
+Body = function(){
+    // for (var i=0; i<storeL
+SalmonCookies.prototype.renderocations.length; i++){
+        var bodyRow = document.createElement('tr');
+        var bodyStore = document.createElement('td');
+        var bodyTotal = document.createElement('td');
+        // bodyStore.textContent = storeLocations.storeName;
+        bodyStore.textContent = this.storeName;
+        bodyRow.appendChild(bodyStore);
+        for (var j = 0; j<hours.length; j++){
+            var bodyHours = document.createElement('td');
+            // bodyHours.textContent = storeLocations[i].hourlySales[i];
+            bodyHours.textContent = this.hourlySales[j];
+            bodyRow.appendChild(bodyHours)
+        }
+        // bodyTotal.textContent = storeLocations[i].dailyTotals[i];
+        bodyTotal.textContent = this.dailyTotals[j];
+        tableBody.appendChild(bodyRow);
+        // bodyHours.appendChild(bodyTotal);
+    // }
 }
 
 function renderFooter (){
@@ -367,7 +374,7 @@ function renderFooter (){
     footerStore.textContent = 'Hourly Totals';
     footerRow.appendChild(footerStore);
 
-    for (var i=0; i<storeLocations.dailyTotals.length; i++){
+    for (var i=0; i<hours.length; i++){
         var footerHours = document.createElement('th');
         footerHours.textContent = hours[i];
         footerRow.appendChild(footerHours);
@@ -375,8 +382,12 @@ function renderFooter (){
     var footerTotal = document.createElement('th');
     footerTotal.textContent = 'Store Total';
     footerRow.appendChild(footerTotal);
+    tableBody.appendChild(footerRow);
 }
 
 //Executable Code
 renderHeader();
-SalmonCookies.renderBody();
+for (var i=0; i<storeLocations.length; i++){
+    storeLocations[i].renderBody();
+}
+renderFooter();
