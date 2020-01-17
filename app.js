@@ -248,7 +248,7 @@ function SalmonCookies(storeName, customerMin, customerMax, customerAverage){
     this.customerMin = customerMin;
     this.customerMax = customerMax;
     this.customerAverage = customerAverage;
-//CALCULATES 
+
     for (var i=0; i<hours.length; i++){
         //Create a variable and call it
         var customersPerHour = getRandomInt(this.customerMin, this.customerMax);
