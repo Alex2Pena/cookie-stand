@@ -16,6 +16,11 @@ div p {
     font-family: fantasy;
 
 }
+footer p{
+    text-align: center;
+    font-size: 20px;
+    font-weight: bolder;
+}
 #salmon {
     height: 8em;
     display: block;
