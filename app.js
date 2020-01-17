@@ -7,119 +7,7 @@ function getRandomInt(customerMin, customerMax){
     var randomNumber = Math.random() * (customerMax - customerMin) + customerMin;
     return Math.floor(randomNumber);
 }
-//=================== NEWLAB==================//
-//Global Array
-var storeLocations = [];
-
-//Constructor---------------------------------------------------------------------------------------
-function SalmonCookies(storeName, customerMin, customerMax, customerAverage){
-    this.storeName = storeName;
-    this.hourlySales = [];
-    this.dailyTotals = 0;
-    this.customerMin = customerMin;
-    this.customerMax = customerMax;
-    this.customerAverage = customerAverage;
-    
-    for (var i=0; i<hours.length; i++){
-        //Create a variable and call it
-        var customersPerHour = getRandomInt(this.customerMin, this.customerMax);
-        //Create new  variable for total cookies per HR = customers per HR * this. customer average.
-        var totalCookiesPerHr = Math.floor(customersPerHour * this.customerAverage);
-        // Add the total cookies to the sales per HR array.
-        this.hourlySales.push(totalCookiesPerHr);
-    }   
-    for (var i=0; i<this.hourlySales.length; i++){
-        this.dailyTotals += this.hourlySales[i];
-        //Heres where you can also write this.dailyTotals += hourlySales[i]
-    }
-    // console.log(this.hourlySales);
-}
-
-//Instances
-var seattleStore = new SalmonCookies('Seattle', 23,65,6.3);
-var tokyoStore = new SalmonCookies('Tokyo', 3,24,1.2);
-var dubaiStore = new SalmonCookies('Dubai', 11,38,3.7);
-var parisStore = new SalmonCookies('Paris', 20,38,2.3);
-var limaStore = new SalmonCookies('Lima', 2,16,4.6);
-
-//Push all instances to Global Array
-storeLocations.push(seattleStore, tokyoStore, dubaiStore, parisStore, limaStore);
-
-console.log(storeLocations);//--------------------------------------------------------------------
-
-var tableBody = document.getElementById('salesTable');
-
-function renderHeader (){
-    var headerRow = document.createElement('tr');
-    var headerStore = document.createElement('th');
-    headerStore.textContent = 'Locations';
-    headerRow.appendChild(headerStore);
-    tableBody.appendChild(headerRow);
-    
-    for (var i=0; i<hours.length; i++){
-        var headerHours = document.createElement('th');
-        headerHours.textContent = hours[i];
-        headerRow.appendChild(headerHours);
-    }
-    var headerTotal = document.createElement('th');
-    headerTotal.textContent = 'Store Total';
-    headerRow.appendChild(headerTotal);
-}
-    SalmonCookies.prototype.body = function(){
-        var bodyRow = document.createElement('tr');
-        tableBody.appendChild(bodyRow); 
-
-        //Create Store name for each row
-        var bodyStore = document.createElement('td');
-        bodyStore.textContent = this.storeName;
-        bodyRow.appendChild(bodyStore);
-        
-        //Created the Hours by looping through the hours array and rendering hourlySales
-        for (var i=0; i<hours.length; i++){
-        var bodyHours = document.createElement('td');
-        bodyHours.textContent = this.hourlySales[i];
-        bodyRow.appendChild(bodyHours);
-        }
-
-        //Grabbing Daily Total and rendering it at the end of the row.
-        var bodyTotal = document.createElement('td');
-        bodyTotal.textContent = this.dailyTotals;
-        bodyRow.appendChild(bodyTotal);
-    }
-
-function renderFooter (){
-    var footerRow = document.createElement('tr');
-    var footerStore = document.createElement('th');
-    footerStore.textContent = 'Hourly Totals';
-    footerRow.appendChild(footerStore);
-
-    var grandTotal = 0;
-    var totalHourlySales = 0;
-    for (var i=0; i<hours.length; i++){
-        var totalHourlySales = 0;
-        for (var j=0; j<storeLocations.length; j++){
-            totalHourlySales += storeLocations[j].hourlySales[i];
-            grandTotal += storeLocations[j].hourlySales[i];
-        }
-        var totalHours = document.createElement('th');
-        totalHours.textContent = totalHourlySales;
-        footerRow.appendChild(totalHours);
-    }
-    var grandTotalSales = document.createElement('th');
-    grandTotalSales.textContent = grandTotal;
-    footerRow.appendChild(grandTotalSales);
-    tableBody.appendChild(footerRow);
-}
-//console.log(renderFooter());
-//Executable Code
-renderHeader();
-
-for (var i=0; i<storeLocations.length; i++){
-    storeLocations[i].body();
-}
-
-renderFooter();
-//-------------------------------------------------
+//LITERAL OBJECTS-------------------------------------------------------------------------------------
 // //Seattle store object//
 // var seattleStore = {
 //     store: 'Seattle',
@@ -348,51 +236,146 @@ renderFooter();
 // limaStore.getHourlySales();
 // limaStore.render();
 
+//===================LAB 07==================//
+//Global Array
+var storeLocations = [];
+
+//CONSTRUCTOR FUNCTION----------------------------------------------------------------------------------
+function SalmonCookies(storeName, customerMin, customerMax, customerAverage){
+    this.storeName = storeName;
+    this.hourlySales = [];
+    this.dailyTotals = 0;
+    this.customerMin = customerMin;
+    this.customerMax = customerMax;
+    this.customerAverage = customerAverage;
+//CALCULATES 
+    for (var i=0; i<hours.length; i++){
+        //Create a variable and call it
+        var customersPerHour = getRandomInt(this.customerMin, this.customerMax);
+        //Create new  variable for total cookies per HR = customers per HR * this. customer average.
+        var totalCookiesPerHr = Math.floor(customersPerHour * this.customerAverage);
+        // Add the total cookies to the sales per HR array.
+        this.hourlySales.push(totalCookiesPerHr);
+    }   
+    for (var i=0; i<this.hourlySales.length; i++){
+        this.dailyTotals += this.hourlySales[i];
+        //Heres where you can also write this.dailyTotals += hourlySales[i]
+    }
+    // console.log(this.hourlySales);
+}
+
+//Instances
+var seattleStore = new SalmonCookies('Seattle', 23,65,6.3);
+var tokyoStore = new SalmonCookies('Tokyo', 3,24,1.2);
+var dubaiStore = new SalmonCookies('Dubai', 11,38,3.7);
+var parisStore = new SalmonCookies('Paris', 20,38,2.3);
+var limaStore = new SalmonCookies('Lima', 2,16,4.6);
+
+//Push all instances to Global Array
+storeLocations.push(seattleStore, tokyoStore, dubaiStore, parisStore, limaStore);
+
+console.log(storeLocations);//--------------------------------------------------------------------
+//------------LAB 8-------------------------------------------------------------------------------
+var tableBody = document.getElementById('salesTable');
+
+function renderHeader (){
+    var headerRow = document.createElement('tr');
+    var headerStore = document.createElement('th');
+    headerStore.textContent = 'Locations';
+    headerRow.appendChild(headerStore);
+    tableBody.appendChild(headerRow);
+    
+    for (var i=0; i<hours.length; i++){
+        var headerHours = document.createElement('th');
+        headerHours.textContent = hours[i];
+        headerRow.appendChild(headerHours);
+    }
+    var headerTotal = document.createElement('th');
+    headerTotal.textContent = 'Store Total';
+    headerRow.appendChild(headerTotal);
+}
+    SalmonCookies.prototype.body = function(){
+        var bodyRow = document.createElement('tr');
+        tableBody.appendChild(bodyRow); 
+
+        //Create Store name for each row
+        var bodyStore = document.createElement('td');
+        bodyStore.textContent = this.storeName;
+        bodyRow.appendChild(bodyStore);
+        
+        //Created the Hours by looping through the hours array and rendering hourlySales
+        for (var i=0; i<hours.length; i++){
+        var bodyHours = document.createElement('td');
+        bodyHours.textContent = this.hourlySales[i];
+        bodyRow.appendChild(bodyHours);
+        }
+
+        //Grabbing Daily Total and rendering it at the end of the row.
+        var bodyTotal = document.createElement('td');
+        bodyTotal.textContent = this.dailyTotals;
+        bodyRow.appendChild(bodyTotal);
+    }
+
+function renderFooter (){
+    var footerRow = document.createElement('tr');
+    var footerStore = document.createElement('th');
+    footerStore.textContent = 'Hourly Totals';
+    footerRow.appendChild(footerStore);
+
+    var grandTotal = 0;
+    var totalHourlySales = 0;
+    for (var i=0; i<hours.length; i++){
+        var totalHourlySales = 0;
+        for (var j=0; j<storeLocations.length; j++){
+            totalHourlySales += storeLocations[j].hourlySales[i];
+            grandTotal += storeLocations[j].hourlySales[i];
+        }
+        var totalHours = document.createElement('th');
+        totalHours.textContent = totalHourlySales;
+        footerRow.appendChild(totalHours);
+    }
+    var grandTotalSales = document.createElement('th');
+    grandTotalSales.textContent = grandTotal;
+    footerRow.appendChild(grandTotalSales);
+    tableBody.appendChild(footerRow);
+}
+//---------------------------------Executable Code--------------------------------------------------
+
+renderHeader();
+for (var i=0; i<storeLocations.length; i++){
+    storeLocations[i].body();
+}
+renderFooter();
+
+//-------------------------------Lab 9 Form & Events------------------------------------------------
+
+var form = document.getElementById('Store-Name');
+form.addEventListener('submit')
+function handleSubmit(){
+}
 
 
 
 
-//CONSTRUCTOR FUNCTIONS//
 
-// var myTable = document.getElementById('myTable');
-// var coffeeArray = ['Latte', 'Mocha', 'Americano', 'Cappucino'];
-// var coffeeTable = document.createElement('table');//creating the table
-// var headerRow = document.createElement('tr');//creating the row within the table
-// for(var i = 0; i < coffeeArray.length; i++){
-//   var tableHeader = document.createElement('th');
-//   tableHeader.textContent = coffeeArray[i]; //ask about this
-//   headerRow.appendChild(tableHeader);
-// }
-// coffeeTable.appendChild(headerRow);
-// for (var i = 0; i < 4; i++){
-//   var row = document.createElement('tr');
-//   // nested for loop begins
-//   for(var j = 0; j < coffeeArray.length; j++){
-//     var tableData = document.createElement('td');
-//     tableData.textContent = Math.floor(getRandomInt(0, 100));
-//     row.appendChild(tableData);
-//   }
-//   coffeeTable.appendChild(row);
-// }
-// myTable.appendChild(coffeeTable);
-// seattleStore.render();
-// function Coffee(size, type, price){
-//   //set properties using this
-//   this.size = size;
-//   this.coffeeType = type;
-//   this.potato = price;
-//   this.temperature = 180;
-//   this.ingredients = [];
-//   this.generateHourSales = function(){
-//     console.log('hello');
-//   };
-// }
-// Coffee.prototype.render = function(){
-//   //rendering logic goes here
-// };
-// //to Create an object using a constructor function
-// //we INSTANTIATE the object using the construction function
-// var anthonysLatte = new Coffee('Large', 'latte', 5 );
-// console.log(anthonysLatte.size);
-// anthonysLatte.render();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
