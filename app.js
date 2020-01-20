@@ -349,9 +349,14 @@ renderFooter();
 
 //-------------------------------Lab 9 Form & Events------------------------------------------------
 
-var form = document.getElementById('Store-Name');
-form.addEventListener('submit')
-function handleSubmit(){
+
+// grab element from DOM
+var form = document.getElementById('Store-Info');
+// Assign even listener of type "submit" to form element and passing in a function to run when the event is called
+form.addEventListener('submit', handleSubmit);
+//
+function handleSubmit(event){
+    
 }
 
 
