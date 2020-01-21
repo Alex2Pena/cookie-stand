@@ -294,41 +294,42 @@ function renderHeader (){
     headerTotal.textContent = 'Store Total';
     headerRow.appendChild(headerTotal);
 }
-    SalmonCookies.prototype.body = function(){
-        var bodyRow = document.createElement('tr');
-        tableBody.appendChild(bodyRow); 
 
-        //Create Store name for each row
-        var bodyStore = document.createElement('td');
-        bodyStore.textContent = this.storeName;
-        bodyRow.appendChild(bodyStore);
-        
-        //Created the Hours by looping through the hours array and rendering hourlySales
-        for (var i=0; i<hours.length; i++){
+SalmonCookies.prototype.body = function(){
+    var bodyRow = document.createElement('tr');
+    tableBody.appendChild(bodyRow); 
+    
+    //Create Store name for each row
+    var bodyStore = document.createElement('td');
+    bodyStore.textContent = this.storeName;
+    bodyRow.appendChild(bodyStore);
+    
+    //Created the Hours by looping through the hours array and rendering hourlySales
+    for (var i=0; i<hours.length; i++){
         var bodyHours = document.createElement('td');
         bodyHours.textContent = this.hourlySales[i];
         bodyRow.appendChild(bodyHours);
-        }
-
-        //Grabbing Daily Total and rendering it at the end of the row.
-        var bodyTotal = document.createElement('td');
-        bodyTotal.textContent = this.dailyTotals;
-        bodyRow.appendChild(bodyTotal);
     }
+    
+    //Grabbing Daily Total and rendering it at the end of the row.
+    var bodyTotal = document.createElement('td');
+    bodyTotal.textContent = this.dailyTotals;
+    bodyRow.appendChild(bodyTotal);
+}
 
 function renderFooter (){
     var footerRow = document.createElement('tr');
     var footerStore = document.createElement('th');
     footerStore.textContent = 'Hourly Totals';
     footerRow.appendChild(footerStore);
-
+    
     var grandTotal = 0;
-    var totalHourlySales = 0;
-    for (var i=0; i<hours.length; i++){
-        var totalHourlySales = 0;
-        for (var j=0; j<storeLocations.length; j++){
-            totalHourlySales += storeLocations[j].hourlySales[i];
-            grandTotal += storeLocations[j].hourlySales[i];
+    var totalHourlySales  = 0;
+    for (var row=0; row<hours.length; row++){
+        totalHourlySales = 0;
+        for (var column=0; column<storeLocations.length; column++){
+            totalHourlySales += storeLocations[column].hourlySales[row];
+            grandTotal += storeLocations[column].hourlySales[row];
         }
         var totalHours = document.createElement('th');
         totalHours.textContent = totalHourlySales;
@@ -340,26 +341,35 @@ function renderFooter (){
     tableBody.appendChild(footerRow);
 }
 //---------------------------------Executable Code--------------------------------------------------
-
-renderHeader();
-for (var i=0; i<storeLocations.length; i++){
-    storeLocations[i].body();
-}
-renderFooter();
-
-//-------------------------------Lab 9 Form & Events------------------------------------------------
-
-
+function render(){
+    tableBody.innerHTML = null;
+    renderHeader();
+    for (var i=0; i<storeLocations.length; i++){
+        storeLocations[i].body();
+    }
+    renderFooter();
+}  
+render();
+//-------------------------------Lab 9 Forms & Events------------------------------------------------
 // grab element from DOM
 var form = document.getElementById('Store-Info');
-// Assign even listener of type "submit" to form element and passing in a function to run when the event is called
+// Assign event listener of type "submit" to form element 
+//and passing in a function to run when the event is detected
 form.addEventListener('submit', handleSubmit);
 //
 function handleSubmit(event){
+    event.preventDefault();
+    var name  = (event.target.storeName.value);
+    var minCust =  parseInt(event.target.minimumCustomer.value);
+    var maxCust =  parseInt(event.target.maxmumCustomer.value);
+    var avgSales =  parseInt(event.target.averageCustomer.value);
     
+    var newCookieStand = new SalmonCookies(name, minCust, maxCust, avgSales)
+    console.log(newCookieStand);
+    newCookieStand.body();
+    render();
 }
-
-
+render();
 
 
 
